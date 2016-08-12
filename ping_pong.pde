@@ -1,5 +1,10 @@
 import processing.sound.*;
 
+boolean keyUp1 = false;
+boolean keyDown1 = false;
+boolean keyUp2 = false;
+boolean keyDown2 = false;
+
 int score1 = 0;
 int score2 = 0;
 int balls = 5;
@@ -13,8 +18,6 @@ float ballX = 0;
 float ballY = 0;
 float speedX = 0;
 float speedY = 0;
-
-float auto = 0;
 
 PFont scoreFont;
 PFont bigFont;
@@ -41,8 +44,6 @@ void setup() {
 
   ballBounceSound = new SoundFile(this, "ball-bounce.wav");
   whistleSound = new SoundFile(this, "referee-whistle.wav");
-
-  auto = Float.NaN;
 
   state = "READY";
 
@@ -72,14 +73,32 @@ void draw() {
     showText = !showText;
   }
 
+  /*
+  // AUTO PLAYER 2 
   if (ballY<y2) {
-    speed2 = -5;
-  } else if (ballY>y2+100) {
-    speed2 = +5;
-  } else {
-    speed2 = 0;
-  }
+   speed2 = -5;
+   } else if (ballY>y2+100) {
+   speed2 = +5;
+   } else {
+   speed2 = 0;
+   }
+   */
 
+  speed1 = 0;
+  speed2 = 0;
+  if (keyUp1) {
+    speed1 = speed1-10;
+  }
+  if (keyDown1) {
+    speed1 = speed1+10;
+  }
+  if (keyUp2) {
+    speed2 = speed2-10;
+  }
+  if (keyDown2) {
+    speed2 = speed2+10;
+  }
+  
   y1 = y1 + speed1;
   y2 = y2 + speed2;
 
@@ -148,7 +167,7 @@ void draw() {
     int winner;
     textFont(bigFont);
     textAlign(CENTER, CENTER); 
-    if(score1>score2) {
+    if (score1>score2) {
       winner = 1;
     } else {
       winner = 2;
@@ -220,31 +239,31 @@ void draw() {
 
 void keyPressed() {
   if (key=='q') {
-    speed1 = -10;
+    keyUp1 = true;
   }
   if (key=='a') {
-    speed1 = 10;
+    keyDown1 = true;
   }
-  if (key=='o') {
-    speed2 = -10;
+  if (key=='p') {
+    keyUp2 = true;
   }
-  if (key=='l') {
-    speed2 = 10;
+  if (key=='ñ') {
+    keyDown2 = true;
   }
 }
 
 void keyReleased() {
   if (key=='q') {
-    speed1 = 0;
+    keyUp1 = false;
   }
   if (key=='a') {
-    speed1 = 0;
+    keyDown1 = false;
   }
-  if (key=='o') {
-    speed2 = 0;
+  if (key=='p') {
+    keyUp2 = false;
   }
-  if (key=='l') {
-    speed2 = 0;
+  if (key=='ñ') {
+    keyDown2 = false;
   }
 }
 
